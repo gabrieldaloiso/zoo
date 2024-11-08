@@ -1,0 +1,10 @@
+#enclosures-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.enclosure-card {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin: 0.5em;
+    width: 200px;
+}
