@@ -1,107 +1,63 @@
 /* style.css */
-/* style.css */
 
 /* Styles globaux */
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
 }
 
 /* Header */
 header {
-    background: url('../images/bandeau.jpg') no-repeat center center/cover;
+    background-image: url('../images/bandeau.jpg');
+    background-size: cover;
     color: white;
+    padding: 1em;
     text-align: center;
-    padding: 2em 0;
 }
-.header-content h1 {
-    margin: 0;
+
+
+.logo {
+    height: 100px; 
+    width: auto;
+    margin-right: 20px;
 }
-.header-content p {
-    font-size: 1.2em;
+
+.header-content {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
 }
-header nav {
-    margin-top: 1em;
+
+header h1 {
+    margin-bottom: 0.5em;
 }
+
 header nav a {
     color: white;
+    text-decoration: none;
     margin: 0 1em;
-    text-decoration: none;
     font-weight: bold;
 }
 
-/* Section d'introduction */
-.intro {
-    padding: 2em;
-    text-align: center;
-    background-color: #e8f5e9;
-}
-.intro h2 {
-    color: #4caf50;
+header nav a:hover {
+    text-decoration: underline;
 }
 
-/* Enclos Populaires */
-.highlighted-enclosures {
+/* Main Content */
+main {
     padding: 2em;
-    background-color: #fafafa;
-}
-.enclosure-cards {
-    display: flex;
-    justify-content: space-around;
-}
-.enclosure-card {
-    border: 1px solid #ddd;
-    padding: 1em;
-    width: 200px;
-    text-align: center;
-    border-radius: 8px;
-    background-color: #fff;
-}
-.enclosure-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-.enclosure-card h3 {
-    color: #333;
-}
-.enclosure-card p {
-    color: #777;
-}
-.enclosure-card a {
-    display: inline-block;
-    margin-top: 1em;
-    color: #4caf50;
-    text-decoration: none;
-    font-weight: bold;
 }
 
-/* Aperçu des Services */
-.services-preview {
-    padding: 2em;
-    text-align: center;
-}
-.service-cards {
-    display: flex;
-    justify-content: space-around;
-}
-.service-card {
-    border: 1px solid #ddd;
-    padding: 1em;
-    width: 150px;
-    border-radius: 8px;
-    background-color: #fff;
-}
-.button {
-    display: inline-block;
-    margin-top: 1em;
-    padding: 0.5em 1em;
-    color: white;
-    background-color: #4caf50;
-    text-decoration: none;
-    border-radius: 4px;
+section {
+    margin-bottom: 2em;
 }
 
 /* Footer */
@@ -110,14 +66,7 @@ footer {
     color: white;
     text-align: center;
     padding: 1em;
-}
-.footer-nav a {
-    color: white;
-    margin: 0 0.5em;
-    text-decoration: none;
-}
-.logo {
-    height: 80px; /* Vous pouvez ajuster cette valeur pour augmenter ou réduire la taille */
-    width: auto;  /* Maintient le ratio de l'image */
-    max-width: 100%; /* S'assure que l'image ne dépasse pas la largeur du conteneur */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
