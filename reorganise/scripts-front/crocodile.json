@@ -1,0 +1,8 @@
+{
+    "animal": {
+        "id": 2,
+        "name":"Le crocodile",
+        "desc": "La croco est un animal sauvage...",
+        "img": "crocodilenainafrique.jpg"
+    }
+}

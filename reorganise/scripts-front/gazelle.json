@@ -1,0 +1,8 @@
+{
+    "animal": {
+        "id": 1,
+        "name":"La gazelle",
+        "desc": "La gazelle est un animal sauvage...",
+        "img": "gazelle-de-thomson-carre.jpg"
+    }
+}
