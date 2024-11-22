@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mar. 19 nov. 2024 à 18:07
+-- Généré le : ven. 22 nov. 2024 à 08:14
 -- Version du serveur : 8.0.35
 -- Version de PHP : 8.2.20
 
@@ -108,6 +108,28 @@ INSERT INTO `animaux` (`id`, `nom`, `nombre`) VALUES
 (68, 'Perroquet', 3),
 (69, 'Cercopithèque', 6),
 (70, 'Crabier', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `avis`
+--
+
+CREATE TABLE `avis` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `enclos_id` int NOT NULL,
+  `note` tinyint NOT NULL,
+  `commentaire` text,
+  `date_creation` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ;
+
+--
+-- Déchargement des données de la table `avis`
+--
+
+INSERT INTO `avis` (`id`, `user_id`, `enclos_id`, `note`, `commentaire`, `date_creation`) VALUES
+(1, 1, 2, 5, 'Super expérience, enclos bien entretenu !', '2024-11-22 07:14:05');
 
 -- --------------------------------------------------------
 
@@ -295,6 +317,95 @@ INSERT INTO `enclos_animaux` (`id_enclos`, `id_animal`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `horaires_repas`
+--
+
+CREATE TABLE `horaires_repas` (
+  `id` int NOT NULL,
+  `animal_id` int NOT NULL,
+  `heure_repas` time NOT NULL,
+  `description` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `horaires_repas`
+--
+
+INSERT INTO `horaires_repas` (`id`, `animal_id`, `heure_repas`, `description`) VALUES
+(1, 1, '17:14:00', 'Repas de Iguane'),
+(2, 2, '10:46:00', 'Repas de Python'),
+(3, 3, '08:43:00', 'Repas de Tortue'),
+(4, 4, '13:45:00', 'Repas de Ara'),
+(5, 5, '08:57:00', 'Repas de Grand Hocco'),
+(6, 6, '14:14:00', 'Repas de Panthère'),
+(7, 7, '11:03:00', 'Repas de Rhinocéros'),
+(8, 8, '10:57:00', 'Repas de Oryx Beisa'),
+(9, 9, '08:34:00', 'Repas de Gnou'),
+(10, 10, '14:27:00', 'Repas de Suricate'),
+(11, 11, '11:25:00', 'Repas de Fennec'),
+(12, 12, '08:58:00', 'Repas de Coati'),
+(13, 13, '15:48:00', 'Repas de Saïmiri'),
+(14, 14, '15:26:00', 'Repas de Tapir'),
+(15, 15, '17:12:00', 'Repas de Autruche'),
+(16, 16, '11:58:00', 'Repas de Gazelle'),
+(17, 17, '17:40:00', 'Repas de Guépard'),
+(18, 18, '14:59:00', 'Repas de Casoar'),
+(19, 19, '09:50:00', 'Repas de Crocodile nain'),
+(20, 20, '15:08:00', 'Repas de Tamarin'),
+(21, 21, '12:58:00', 'Repas de Ouistiti'),
+(22, 22, '12:17:00', 'Repas de Grivet'),
+(23, 23, '09:51:00', 'Repas de Varan de Komodo'),
+(24, 24, '16:32:00', 'Repas de Élephant'),
+(25, 25, '10:42:00', 'Repas de Girafe'),
+(26, 26, '15:29:00', 'Repas de Hyène'),
+(27, 27, '10:50:00', 'Repas de Zèbre'),
+(28, 28, '12:39:00', 'Repas de Hippopotame'),
+(29, 29, '17:46:00', 'Repas de Lion'),
+(30, 30, '08:01:00', 'Repas de Loup à crinière'),
+(31, 31, '16:23:00', 'Repas de Panda roux'),
+(32, 32, '11:19:00', 'Repas de Lémurien'),
+(33, 33, '15:36:00', 'Repas de Chèvre naine'),
+(34, 34, '17:41:00', 'Repas de Mouflon'),
+(35, 35, '15:32:00', 'Repas de Binturong'),
+(36, 36, '13:04:00', 'Repas de Loutre'),
+(37, 37, '15:41:00', 'Repas de Cigogne'),
+(38, 38, '09:31:00', 'Repas de Marabout'),
+(39, 39, '10:41:00', 'Repas de Oryx algazelle'),
+(40, 40, '14:17:00', 'Repas de Watusi'),
+(41, 41, '12:19:00', 'Repas de Ane de Somalie'),
+(42, 42, '11:34:00', 'Repas de Yack'),
+(43, 43, '17:02:00', 'Repas de Mouton noir'),
+(44, 44, '11:29:00', 'Repas de Ibis'),
+(45, 45, '12:53:00', 'Repas de Pécari'),
+(46, 46, '08:37:00', 'Repas de Tamanoir'),
+(47, 47, '17:51:00', 'Repas de Flamand rose'),
+(48, 48, '12:40:00', 'Repas de Nandou'),
+(49, 49, '08:09:00', 'Repas de Émeu'),
+(50, 50, '14:58:00', 'Repas de Wallaby'),
+(51, 51, '15:55:00', 'Repas de Porc-épic'),
+(52, 52, '10:43:00', 'Repas de Bison'),
+(53, 53, '15:22:00', 'Repas de Ane de provence'),
+(54, 54, '15:38:00', 'Repas de Dromadaire'),
+(55, 55, '17:57:00', 'Repas de Lynx'),
+(56, 56, '16:30:00', 'Repas de Serval'),
+(57, 57, '16:49:00', 'Repas de Chien des buissons'),
+(58, 58, '13:18:00', 'Repas de Tigre'),
+(59, 59, '16:28:00', 'Repas de Antilope'),
+(60, 60, '15:17:00', 'Repas de Nigault'),
+(61, 61, '10:20:00', 'Repas de Daim'),
+(62, 62, '17:53:00', 'Repas de Loup européen'),
+(63, 63, '12:46:00', 'Repas de Macaque'),
+(64, 64, '12:43:00', 'Repas de Cerf'),
+(65, 65, '11:48:00', 'Repas de Vautour'),
+(66, 66, '16:40:00', 'Repas de Capucin'),
+(67, 67, '17:41:00', 'Repas de Gibbon'),
+(68, 68, '14:03:00', 'Repas de Perroquet'),
+(69, 69, '11:44:00', 'Repas de Cercopithèque'),
+(70, 70, '13:28:00', 'Repas de Crabier');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `services`
 --
 
@@ -379,16 +490,17 @@ CREATE TABLE `users` (
   `id` int NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
-(1, 'testuser', 'test@example.com', 'password'),
-(2, 'gaby', 'gaby@example.com', 'password');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`) VALUES
+(1, 'testuser', 'test@example.com', 'password', 1),
+(2, 'gaby', 'gaby@example.com', 'password', 0);
 
 --
 -- Index pour les tables déchargées
@@ -399,6 +511,14 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
 --
 ALTER TABLE `animaux`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `avis`
+--
+ALTER TABLE `avis`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `enclos_id` (`enclos_id`);
 
 --
 -- Index pour la table `biomes`
@@ -420,6 +540,13 @@ ALTER TABLE `enclos`
 ALTER TABLE `enclos_animaux`
   ADD PRIMARY KEY (`id_enclos`,`id_animal`),
   ADD KEY `fk_animal` (`id_animal`);
+
+--
+-- Index pour la table `horaires_repas`
+--
+ALTER TABLE `horaires_repas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `animal_id` (`animal_id`);
 
 --
 -- Index pour la table `services`
@@ -451,10 +578,22 @@ ALTER TABLE `animaux`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
+-- AUTO_INCREMENT pour la table `avis`
+--
+ALTER TABLE `avis`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `biomes`
 --
 ALTER TABLE `biomes`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `horaires_repas`
+--
+ALTER TABLE `horaires_repas`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT pour la table `services`
@@ -479,6 +618,13 @@ ALTER TABLE `users`
 --
 
 --
+-- Contraintes pour la table `avis`
+--
+ALTER TABLE `avis`
+  ADD CONSTRAINT `avis_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `avis_ibfk_2` FOREIGN KEY (`enclos_id`) REFERENCES `enclos` (`id`) ON DELETE CASCADE;
+
+--
 -- Contraintes pour la table `enclos`
 --
 ALTER TABLE `enclos`
@@ -490,6 +636,12 @@ ALTER TABLE `enclos`
 ALTER TABLE `enclos_animaux`
   ADD CONSTRAINT `fk_animal` FOREIGN KEY (`id_animal`) REFERENCES `animaux` (`id`),
   ADD CONSTRAINT `fk_enclos` FOREIGN KEY (`id_enclos`) REFERENCES `enclos` (`id`);
+
+--
+-- Contraintes pour la table `horaires_repas`
+--
+ALTER TABLE `horaires_repas`
+  ADD CONSTRAINT `horaires_repas_ibfk_1` FOREIGN KEY (`animal_id`) REFERENCES `animaux` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `services`
