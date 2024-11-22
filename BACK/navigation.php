@@ -5,10 +5,10 @@ function getRoute($startPoint, $endPoint) {
     global $conn;
 
     // Requête pour obtenir les coordonnées des points de départ et d'arrivée
-    $query = "SELECT id, nom FROM (
-                SELECT id, nom FROM enclos
+    $query = "SELECT id, name FROM (
+                SELECT id, name FROM enclos
                 UNION
-                SELECT id, nom FROM services
+                SELECT id, name FROM services
               ) AS points WHERE id IN (?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ii", $startPoint, $endPoint);
