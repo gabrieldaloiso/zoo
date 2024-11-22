@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
     } else {
-        echo json_encode(["status" => "error", "message" => "Les données 'username', 'email' et 'password' sont requises."]);
+        echo json_encode(["status" => "error", "message" => "Les donnees 'username', 'email' et 'password' sont requises."]);
     }
 }
 ?>
