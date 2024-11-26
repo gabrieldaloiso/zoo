@@ -1,6 +1,5 @@
 <?php
 require_once 'db.php';
-// ...existing code...
 
 function getBiomesByColor($color) {
     global $conn;
@@ -16,11 +15,16 @@ function getBiomesByColor($color) {
     return $biomes;
 }
 
-// Exemple d'utilisation
-$biomesByColor = getBiomesByColor('#808080');
-foreach ($biomesByColor as $biome) {
-    echo $biome['nom'] . "<br>";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (isset($data['color'])) {
+        $color = $data['color'];
+        $biomesByColor = getBiomesByColor($color);
+        header('Content-Type: application/json');
+        echo json_encode($biomesByColor);
+    } else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Color parameter is missing']);
+    }
 }
-
-// ...existing code...
 ?>
