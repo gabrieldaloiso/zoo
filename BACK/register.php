@@ -2,24 +2,25 @@
 require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (isset($data['username']) && isset($data['email']) && isset($data['password'])) {
+        $username = $data['username'];
+        $email = $data['email'];
+        $password = $data['password'];
 
         $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $email, $password);
 
         if ($stmt->execute()) {
-            echo "Inscription réussie!";
+            echo "Registration successful!";
         } else {
-            echo "Erreur: " . $stmt->error;
+            echo "Error: " . $stmt->error;
         }
 
         $stmt->close();
         $conn->close();
     } else {
-        echo "Tous les champs sont obligatoires.";
+        echo "All fields are required.";
     }
 }
 ?>

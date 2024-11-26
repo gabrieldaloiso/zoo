@@ -18,12 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->fetch();
 
         if ($password === $stored_password) {
-            echo json_encode(["status" => "success", "message" => "Connexion réussie.", "user_id" => $id]);
+            echo json_encode(["status" => "success", "message" => "Connexion enabled.", "user_id" => $id]);
         } else {
             echo json_encode(["status" => "error", "message" => "Mot de passe incorrect."]);
         }
     } else {
-        echo json_encode(["status" => "error", "message" => "Utilisateur non trouvé."]);
+        echo json_encode(["status" => "error", "message" => "user no find."]);
     }
 
     $stmt->close();
