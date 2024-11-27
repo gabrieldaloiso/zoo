@@ -1,63 +1,74 @@
 <?php
 include 'db.php';
 
-header('Content-Type: application/json');
+function getBiome($enclos_id) {
+    global $conn;
+    $sql = "SELECT b.nom FROM enclos e JOIN biomes b ON e.id_biome = b.id WHERE e.id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $enclos_id);
+    $stmt->execute();
+    $stmt->bind_result($biome);
+    $stmt->fetch();
+    $stmt->close();
+    return $biome;
+}
+
+function getServiceBiome($service_name) {
+    global $conn;
+    $sql = "SELECT b.nom FROM services s JOIN biomes b ON s.id_biome = b.id WHERE s.nom = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $service_name);
+    $stmt->execute();
+    $stmt->bind_result($biome);
+    $stmt->fetch();
+    $stmt->close();
+    return $biome;
+}
+
+function getAnimalEnclos($animal_name) {
+    global $conn;
+    $sql = "SELECT e.id, b.nom FROM enclos_animaux ea JOIN animaux a ON ea.id_animal = a.id JOIN enclos e ON ea.id_enclos = e.id JOIN biomes b ON e.id_biome = b.id WHERE a.nom = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $animal_name);
+    $stmt->execute();
+    $stmt->bind_result($enclos_id, $biome);
+    $stmt->fetch();
+    $stmt->close();
+    return ['enclos_id' => $enclos_id, 'biome' => $biome];
+}
+
+function navigate($start_biome, $destination_name, $is_service) {
+    if ($is_service) {
+        $destination_biome = getServiceBiome($destination_name);
+        if ($destination_biome) {
+            if ($start_biome == $destination_biome) {
+                return "This service is available in your biome.";
+            } else {
+                return "Your service is available in $destination_biome.";
+            }
+        } else {
+            return "Go to the park entrance.";
+        }
+    } else {
+        $animal_info = getAnimalEnclos($destination_name);
+        if ($animal_info['biome']) {
+            if ($start_biome == $animal_info['biome']) {
+                return "This animal is in enclosure " . $animal_info['enclos_id'] . " of your biome.";
+            } else {
+                return "Your animal is in " . $animal_info['biome'] . " biome in enclosure " . $animal_info['enclos_id'] . ".";
+            }
+        } else {
+            return "Go to the park entrance.";
+        }
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
-
-    if (isset($data['startName']) && isset($data['endName'])) {
-        $startName = $data['startName'];
-        $endName = $data['endName'];
-
-        $response = getRoute($startName, $endName);
-        echo json_encode(['route' => $response]);
-    } else {
-        echo json_encode(['error' => 'Invalid input']);
-    }
-} else {
-    echo json_encode(['error' => 'Invalid request method']);
-}
-
-function getRoute($startName, $endName) {
-    global $conn;
-
-    // Requête pour obtenir les biomes des points de départ et d'arrivée
-    $query = "SELECT nom, id_biome FROM (
-                SELECT enclos.id AS id, enclos.id_biome, biomes.nom FROM enclos
-                JOIN biomes ON enclos.id_biome = biomes.id
-                UNION
-                SELECT services.id AS id, services.id_biome, biomes.nom FROM services
-                LEFT JOIN biomes ON services.id_biome = biomes.id
-              ) AS points WHERE id IN (
-                (SELECT id FROM enclos WHERE nom = ?),
-                (SELECT id FROM services WHERE nom = ?)
-              )";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $startName, $endName);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $points = [];
-    while ($row = $result->fetch_assoc()) {
-        $points[] = $row;
-    }
-
-    if (count($points) == 2) {
-        $startBiome = $points[0]['id_biome'];
-        $endBiome = $points[1]['id_biome'];
-
-        if ($startBiome && $endBiome) {
-            if ($startBiome == $endBiome) {
-                return "Restez dans le biome.";
-            } else {
-                return "Passez par les biomes: " . $points[0]['nom'] . " et " . $points[1]['nom'];
-            }
-        } else {
-            return "Un ou les deux points sont hors des biomes.";
-        }
-    } else {
-        return "Points de départ ou d'arrivée invalides.";
-    }
+    $start_biome = $data['start_biome'];
+    $destination_name = $data['destination_name'];
+    $is_service = $data['is_service'];
+    $result = navigate($start_biome, $destination_name, $is_service);
+    echo json_encode(['message' => $result]);
 }
 ?>
